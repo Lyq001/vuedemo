@@ -6,11 +6,12 @@
                 <el-button type="warning" @click="edit()">修改</el-button>
                 <el-button type="danger" @click="remove()">删除</el-button>
                 <el-button type="primary" @click="toggleSelection()">取消选择</el-button>
+                <el-button type="primary" @click="back()">返回</el-button>
             </el-col>
             <el-col span="4">
                 <el-form ref="searchForm" :model="searchForm" clearable>
                     <el-input
-                            placeholder="请输入工作流名称"
+                            placeholder="请输入表名称"
                             prefix-icon="el-icon-search"
                             v-model="searchForm.input">
                     </el-input>
@@ -32,40 +33,79 @@
                     width="100%">
             </el-table-column>
             <el-table-column
-                    fixed
-                    prop="datasourceid"
+                    prop="fieldid"
                     label="主键"
+                    width="50%">
+            </el-table-column>
+            <el-table-column
+                    prop="iskey"
+                    label="主键字段"
+                    width="80%">
+            </el-table-column>
+            <el-table-column
+                    prop="isenable"
+                    label="是否显示"
                     width="100%">
             </el-table-column>
             <el-table-column
-                    prop="sessionfactory"
-                    label="数据库名称"
+                    prop="nlength"
+                    label="长度"
                     width="100%">
-            </el-table-column>
-            <el-table-column width="100%" label="操作">
-                <template slot-scope="scope">
-                    <el-button  @click="testDataBase(scope.row)" type="text" size="medium">测试连接</el-button>
-                </template>
-            </el-table-column>
-            <el-table-column width="100%" label="操作">
-                <template slot-scope="scope">
-                    <el-button  @click="TableSet(scope.row)" type="text" size="medium">表配置</el-button>
-                </template>
-            </el-table-column>
-            <el-table-column width="100%" label="操作">
-                <template slot-scope="scope">
-                    <el-button  @click="ProdureSet(scope.row)" type="text" size="medium">存储配置</el-button>
-                </template>
             </el-table-column>
             <el-table-column
-                    prop="databasetype"
-                    label="数据库类型"
+                    prop="nprecise"
+                    label="精度"
                     width="100%">
+            </el-table-column>
+            <el-table-column
+                    prop="nseq"
+                    label="排序"
+                    width="200%">
+            </el-table-column>
+            <el-table-column
+                    prop="chinaname"
+                    label="中文字段名"
+                    width="100%">
+            </el-table-column>
+            <el-table-column
+                    prop="constlist"
+                    label="constlist"
+                    width="150%">
+            </el-table-column>
+            <el-table-column
+                    prop="dbconstlist"
+                    label="dbconstlist"
+                    width="200%">
             </el-table-column>
             <el-table-column
                     prop="discription"
                     label="描述"
-                    width="100%">
+                    width="200%">
+            </el-table-column>
+            <el-table-column
+                    prop="emptytype"
+                    label="是否空值"
+                    width="200%">
+            </el-table-column>
+            <el-table-column
+                    prop="fieldname"
+                    label="字段名称"
+                    width="200%">
+            </el-table-column>
+            <el-table-column
+                    prop="fieldtype"
+                    label="字段类型"
+                    width="200%">
+            </el-table-column>
+            <el-table-column
+                    prop="logicemptytype"
+                    label="逻辑为空"
+                    width="200%">
+            </el-table-column>
+            <el-table-column
+                    prop="tableid"
+                    label="所属表"
+                    width="200%">
             </el-table-column>
         </el-table>
         <el-pagination
@@ -80,10 +120,8 @@
 
 <script>
     export default {
-        name: "DataSourceManager",
         methods: {
             toggleSelection(rows) {
-                alert(rows)
                 if (rows) {
                     rows.forEach(row => {
                         this.$refs.multipleTable.toggleRowSelection(row);
@@ -95,14 +133,15 @@
             handleSelectionChange(val) {
                 this.multipleSelection = [];
                 for (let i = 0; i < val.length; i++) {
-                    if (this.multipleSelection.indexOf(val[i].datasourceid) === -1) {
-                        this.multipleSelection.push(val[i].datasourceid)
+                    if (this.multipleSelection.indexOf(val[i].fieldid) === -1) {
+                        this.multipleSelection.push(val[i].fieldid)
                     }
                 }
             },
             remove() {
                 const _this = this
-                axios.delete('http://localhost:8181/DataSource/deleteById/'+this.multipleSelection).then(function (resq) {
+                alert('http://localhost:8181/Field/deleteById/'+this.multipleSelection)
+                axios.delete('http://localhost:8181/Field/deleteById/'+this.multipleSelection).then(function (resq) {
                     _this.$alert('删除成功！', '消息', {
                         confirmButtonText: '确定',
                         callback: action => {
@@ -116,7 +155,7 @@
                     alert("请选择一条要修改的数据！")
                 }else{
                     this.$router.push({//页面跳转，带参数
-                        path: "/DataSourceEdit", //跳转到图书修改界面
+                        path: "/ReportModel_FieldEdit", //跳转到图书修改界面
                         query:{
                             id:this.multipleSelection[0]
                         }
@@ -125,57 +164,56 @@
             },
             add() {
                 this.$router.push({//页面跳转，带参数
-                    path: "/DataSourceAdd", //跳转到图书修改界面
+                    path: "/ReportModel_FieldAdd", //跳转到图书修改界面
+                    query:{
+                        id:this.$route.query.id
+                    }
                 });
             },
-            search(){
+            back() {
+                this.$router.push({//页面跳转，带参数
+                    path: "/ReportModel_TableManager", //跳转到图书修改界面
+                    query:{
+                        id:this.$route.query.did
+                    }
+                });
+            },
+            addFields(row){
+                this.$router.push({//页面跳转，带参数
+                    path: "/ReportModel_FieldManager", //跳转到图书修改界面
+                    query:{
+                        id:row.autoworkflowid
+                    }
+                });
+            },
+            search(){//搜索框查询
                 if(this.searchForm.input==null||this.searchForm.input==""){
                     const _this = this
-                    axios.get('http://localhost:8181/DataSource/findAll/1/5').then(function (resp) {
+                    axios.get('http://localhost:8181/Field/findByPId/'+this.$route.query.id+'/1/5').then(function (resp) {
                         _this.tableData = resp.data.content
                         _this.total = resp.data.totalElements
                     })
                 }else{
                     const _this = this
-                    axios.get('http://localhost:8181/DataSource/findByNameLike/'+this.searchForm.input+'').then(function (resp) {
+                    axios.get('http://localhost:8181/Field/findByNameLike/'+this.searchForm.input+'').then(function (resp) {
                         _this.tableData = resp.data
-                        this.searchForm.input.clear()
+                        this.searchForm.input.clear()//清空搜索变量内容，前台清空点击查询时执行上面的逻辑
                     })
                 }
+
             },
             page(currentPage){
                 const _this = this
-                axios.get('http://localhost:8181/DataSource/findAll/'+currentPage+'/5').then(function (resp) {
+                axios.get('http://localhost:8181/Field/findAll/'+currentPage+'/5').then(function (resp) {
                     _this.tableData = resp.data.content
                     _this.total = resp.data.totalElements
                 })
-            },
-            TableSet(row){
-                this.$router.push({//页面跳转，带参数
-                    path: "/ReportModel_TableManager", //跳转到图书修改界面
-                    query:{
-                        id:row.datasourceid
-                    }
-                });
-            },
-            testDataBase(row){
-                const _this = this
-                axios.put('http://localhost:8181/DataSource/testDataBase/'+row.datasourceid+'').then(function (resp) {
-                        alert(resp.data)
-                })
-            },
-            ProdureSet(row){
-                this.$router.push({//页面跳转，带参数
-                    path: "/DataSource_ProcedureManager", //跳转到图书修改界面
-                    query:{
-                        id:row.datasourceid
-                    }
-                });
             }
         },
         created() {//页面加载触发
             const _this = this
-            axios.get('http://localhost:8181/DataSource/findAll/1/5').then(function (resp) {
+            alert(this.$route.query.id)
+            axios.get('http://localhost:8181/Field/findByPId/'+this.$route.query.id+'/1/5').then(function (resp) {
                 _this.tableData = resp.data.content
                 _this.total = resp.data.totalElements
             })

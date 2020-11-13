@@ -81,7 +81,7 @@
                     label="操作"
                     width="100%">
                 <template slot-scope="scope">
-                    <el-button @click="addChild(scope.row)" type="text" size="small">设置节点</el-button>
+                    <el-button @click="addFields(scope.row)" type="text" size="small">字段设置</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -122,7 +122,7 @@
                     _this.$alert('删除成功！', '消息', {
                         confirmButtonText: '确定',
                         callback: action => {
-                            this.window.location.reload()//刷新当前页面
+                            window.location.reload()//刷新当前页面
                         }
                     });
                 })
@@ -152,11 +152,12 @@
                     path: "/DataSourceManager", //跳转到图书修改界面
                 });
             },
-            addChild(row){
+            addFields(row){
                 this.$router.push({//页面跳转，带参数
-                    path: "/ReportModel_TableManager", //跳转到图书修改界面
+                    path: "/ReportModel_FieldManager", //跳转到图书修改界面
                     query:{
-                        id:row.autoworkflowid
+                        id:row.tableid,
+                        did:row.datasourceid
                     }
                 });
             },

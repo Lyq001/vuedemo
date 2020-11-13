@@ -20,6 +20,12 @@ import DataSourceEdit from "./views/AutoETL/DataSource/DataSourceEdit";
 import ReportModel_TableManager from "./views/AutoETL/DataSource/ReportModel_TableManager";
 import ReportModel_TableAdd from "./views/AutoETL/DataSource/ReportModel_TableAdd";
 import ReportModel_TableEdit from "./views/AutoETL/DataSource/ReportModel_TableEdit";
+import ReportModel_FieldManager from "./views/AutoETL/DataSource/ReportModel_FieldManager";
+import ReportModel_FieldAdd from "./views/AutoETL/DataSource/ReportModel_FieldAdd";
+import ReportModel_FieldEdit from "./views/AutoETL/DataSource/ReportModel_FieldEdit";
+import DataSource_ProcedureManager from "./views/AutoETL/DataSource/DataSource_ProcedureManager";
+import DataSource_ProcedureAdd from "./views/AutoETL/DataSource/DataSource_ProcedureAdd";
+import DataSource_ProcedureEdit from "./views/AutoETL/DataSource/DataSource_ProcedureEdit";
 Vue.use(Router)
 
 export default new Router({
@@ -140,6 +146,36 @@ export default new Router({
         path:'/ReportModel_TableAdd',
         show: false,
         component:ReportModel_TableAdd
+    },
+    {
+        path:'/ReportModel_FieldManager',
+        show: false,
+        component:ReportModel_FieldManager
+    },
+    {
+        path:'/ReportModel_FieldEdit',
+        show: false,
+        component:ReportModel_FieldEdit
+    },
+    {
+        path:'/ReportModel_FieldAdd',
+        show: false,
+        component:ReportModel_FieldAdd
+    },
+    {
+        path:'/DataSource_ProcedureManager',
+        show: false,
+        component:DataSource_ProcedureManager
+    },
+    {
+        path:'/DataSource_ProcedureEdit',
+        show: false,
+        component:DataSource_ProcedureEdit
+    },
+    {
+        path:'/DataSource_ProcedureAdd',
+        show: false,
+        component:DataSource_ProcedureAdd
     },
     {
         path:'/Login',

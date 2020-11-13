@@ -59,7 +59,6 @@
                 <el-col>
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                        <el-button type="primary" @click="resetForm('ruleForm')">重置</el-button>
                         <el-button type="primary" @click="back()">返回</el-button>
                     </el-form-item>
                 </el-col>
@@ -112,9 +111,6 @@
                         return false;
                     }
                 });
-            },
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
             },
             back() {
                 this.$router.push({//页面跳转，带参数

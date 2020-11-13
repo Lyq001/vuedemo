@@ -3,74 +3,91 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm"
                  style="width: 1000px;height: 1000px"
                  label-width="100px" class="demo-ruleForm">
-            <h3>工作流节点修改界面</h3>
+            <h3>数据源字段修改界面</h3>
             <el-form-item :hidden="true" label="主键">
-                <el-input v-model="ruleForm.autoworkflowid" readonly></el-input>
+                <el-input v-model="ruleForm.fieldid" readonly></el-input>
             </el-form-item>
             <el-row>
                 <el-col span="12">
-                    <el-form-item label="排序" prop="intorder">
-                        <el-input v-model="ruleForm.intorder"></el-input>
+                    <el-form-item label="是否主键" prop="iskey">
+                        <el-input v-model="ruleForm.iskey"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col span="12">
-                    <el-form-item label="节点名称" prop="activitynodename">
-                        <el-input v-model="ruleForm.activitynodename"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col span="12">
-                    <el-form-item label="节点类型" prop="activitynodetype">
-                        <el-input v-model="ruleForm.activitynodetype" ></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col span="12">
-                    <el-form-item label="分组" prop="intordergroup">
-                        <el-input v-model="ruleForm.intordergroup"></el-input>
+                    <el-form-item label="是否有效" prop="isenable">
+                        <el-input v-model="ruleForm.isenable"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
             <el-row>
                 <el-col span="12">
-                    <el-form-item label="描述" prop="strdiscription">
-                        <el-input v-model="ruleForm.strdiscription"></el-input>
+                    <el-form-item label="长度" prop="nlength">
+                        <el-input v-model="ruleForm.nlength" ></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col span="12">
-                    <el-form-item label="执行类型" prop="repeattype">
-                        <el-input v-model="ruleForm.repeattype" ></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col span="12">
-                    <el-form-item label="sql条件" prop="sqlcondition">
-                        <el-input v-model="ruleForm.sqlcondition"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col span="12">
-                    <el-form-item label="开始条件" prop="startconditiontype">
-                        <el-input v-model="ruleForm.strdiscription"></el-input>
+                    <el-form-item label="精度" prop="nprecise">
+                        <el-input v-model="ruleForm.nprecise"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
             <el-row>
                 <el-col span="12">
-                    <el-form-item label="数据库" prop="datasourceid">
-                        <el-input v-model="ruleForm.datasourceid" ></el-input>
+                    <el-form-item label="排序" prop="nseq">
+                        <el-input v-model="ruleForm.nseq"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col span="12">
-                    <el-form-item label="存储过程" prop="procedureid">
-                        <el-input v-model="ruleForm.procedureid"></el-input>
+                    <el-form-item label="字段中文名" prop="chinaname">
+                        <el-input v-model="ruleForm.chinaname" ></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
             <el-row>
                 <el-col span="12">
-                    <el-form-item label="工作流" prop="workflowid">
-                        <el-input v-model="ruleForm.workflowid"></el-input>
+                    <el-form-item label="字段名" prop="fieldname">
+                        <el-input v-model="ruleForm.fieldname"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col span="12">
+                    <el-form-item label="constlist" prop="constlist">
+                        <el-input v-model="ruleForm.constlist"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col span="12">
+                    <el-form-item label="dbconstlist" prop="dbconstlist">
+                        <el-input v-model="ruleForm.dbconstlist"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col span="12">
+                    <el-form-item label="描述" prop="discription">
+                        <el-input v-model="ruleForm.discription"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col span="12">
+                    <el-form-item label="是否为空" prop="emptytype">
+                        <el-input v-model="ruleForm.emptytype"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col span="12">
+                    <el-form-item label="字段类型" prop="fieldtype">
+                        <el-input v-model="ruleForm.fieldtype"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col span="12">
+                    <el-form-item label="逻辑为空" prop="logicemptytype">
+                        <el-input v-model="ruleForm.logicemptytype"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col span="12">
+                    <el-form-item label="所属表" prop="tableid">
+                        <el-input v-model="ruleForm.tableid"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -82,7 +99,7 @@
                     </el-form-item>
                 </el-col>
             </el-row>
-    </el-form>
+        </el-form>
     </div>
 </template>
 <script>
@@ -109,12 +126,18 @@
                 const _this = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        axios.put('http://localhost:8181/AcNode/update',this.ruleForm).then(function (resq) {
+                        alert(this.ruleForm.datasourceid)
+                        axios.put('http://localhost:8181/Field/update',this.ruleForm).then(function (resq) {
                             if(resq.data == 'success'){
-                                _this.$alert('《'+_this.ruleForm.activitynodename+'》修改成功！', '消息', {
+                                _this.$alert('《'+_this.ruleForm.fieldname+'》修改成功！', '消息', {
                                     confirmButtonText: '确定',
                                     callback: action => {
-                                        _this.$router.push("/ActivityNodeManager");//添加成功后跳转到图书管理界面
+                                        _this.$router.push({
+                                            path: "/ReportModel_FieldManager",
+                                            query:{
+                                                id:_this.ruleForm.tableid
+                                            }
+                                        });
                                     }
                                 });
                             }
@@ -127,16 +150,16 @@
             },
             back() {
                 this.$router.push({//页面跳转，带参数
-                    path: "/ActivityNodeManager", //跳转到图书修改界面
+                    path: "/ReportModel_FieldManager", //跳转到图书修改界面
                     query:{
-                        id:this.ruleForm.workflowid
+                        id:this.ruleForm.tableid
                     }
                 });
             },
         },
         created(){
             const _this = this
-            axios.get('http://localhost:8181/AcNode/findById/'+this.$route.query.id).then(function (req) {
+            axios.get('http://localhost:8181/Field/findById/'+this.$route.query.id).then(function (req) {
                 _this.ruleForm = req.data
             })
         }
